@@ -1,7 +1,8 @@
 defmodule Tesla.Mixfile do
   use Mix.Project
 
-  @version "1.4.0"
+  @source_url "https://github.com/teamon/tesla"
+  @version "1.4.1"
 
   def project do
     [
@@ -9,7 +10,6 @@ defmodule Tesla.Mixfile do
       version: @version,
       description: description(),
       package: package(),
-      source_url: "https://github.com/teamon/tesla",
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
       deps: deps(),
@@ -73,7 +73,7 @@ defmodule Tesla.Mixfile do
       # testing & docs
       {:excoveralls, "~> 0.8", only: :test},
       {:httparrot, "~> 1.2", only: :test},
-      {:ex_doc, "~> 0.21", only: :dev},
+      {:ex_doc, "~> 0.21", only: :dev, runtime: false},
       {:mix_test_watch, "~> 1.0", only: :dev},
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
       {:inch_ex, "~> 2.0", only: :docs}
@@ -83,6 +83,7 @@ defmodule Tesla.Mixfile do
   defp docs do
     [
       main: "readme",
+      source_url: @source_url,
       source_ref: "v#{@version}",
       extras: ["README.md", "LICENSE"],
       groups_for_modules: [
@@ -91,12 +92,12 @@ defmodule Tesla.Mixfile do
           Tesla.Middleware
         ],
         Adapters: [
+          Tesla.Adapter.Finch,
           Tesla.Adapter.Gun,
           Tesla.Adapter.Hackney,
           Tesla.Adapter.Httpc,
           Tesla.Adapter.Ibrowse,
-          Tesla.Adapter.Mint,
-          Tesla.Adapter.Finch
+          Tesla.Adapter.Mint
         ],
         Middlewares: [
           Tesla.Middleware.BaseUrl,

@@ -1,13 +1,13 @@
 defmodule Tesla.Middleware.DigestAuth do
   @moduledoc """
-  Digest access authentication middleware
+  Digest access authentication middleware.
 
   [Wiki on the topic](https://en.wikipedia.org/wiki/Digest_access_authentication)
 
   **NOTE**: Currently the implementation is incomplete and works only for MD5 algorithm
-  and auth qop.
+  and auth "quality of protection" (qop).
 
-  ## Example
+  ## Examples
 
   ```
   defmodule MyClient do
@@ -56,9 +56,10 @@ defmodule Tesla.Middleware.DigestAuth do
 
   defp authorization_vars(env, opts) do
     with {:ok, unauthorized_response} <-
-           env.__module__.get(
+           env.__module__.request(
              env.__client__,
-             env.url,
+             method: env.opts[:pre_auth_method] || env.method,
+             url: env.url,
              opts: Keyword.put(env.opts || [], :digest_auth_handshake, true)
            ) do
       {:ok,

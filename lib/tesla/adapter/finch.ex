@@ -11,7 +11,7 @@ if Code.ensure_loaded?(Finch) do
     mix compile
     ```
 
-    ## Example usage
+    ## Examples
 
     In order to use Finch, you must start it and provide a `:name`. For example,
     in your supervision tree:
@@ -42,11 +42,11 @@ if Code.ensure_loaded?(Finch) do
 
     ## [Finch options](https://hexdocs.pm/finch/Finch.html#request/3)
 
-      * `:pool_timeout` - This timeout is applied when a connection is checekd
-      out from the pool. Default value is `5_000`.
+      * `:pool_timeout` - This timeout is applied when a connection is checked
+        out from the pool. Default value is `5_000`.
 
       * `:receive_timeout` - The maximum time to wait for a response before
-      returning an error. Default value is `15_000`.
+        returning an error. Default value is `15_000`.
 
     """
     @behaviour Tesla.Adapter
